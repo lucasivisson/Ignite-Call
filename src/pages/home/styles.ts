@@ -6,7 +6,7 @@ export const Container = styled('div', {
   height: '100vh',
   display: 'flex',
   alignItems: 'center',
-  gap: '$20',
+  gap: '$40',
 })
 
 export const Hero = styled('div', {
