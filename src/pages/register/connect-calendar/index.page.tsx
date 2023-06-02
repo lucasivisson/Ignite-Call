@@ -1,26 +1,10 @@
 import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { Container, Header } from '../styles'
 import { ArrowRight } from 'phosphor-react'
-import { z } from 'zod'
 import { ConnectBox, ConnectItem } from './styles'
 
-const registerFormSchema = z.object({
-  username: z
-    .string()
-    .min(3, { message: 'O usuário precisa ter pelo menos 3 letras.' })
-    .regex(/^([a-z-\\_\\-]+)$/i, {
-      message: 'O usuário pode ter apenas letras,hífens e underline.',
-    })
-    .transform((username) => username.toLowerCase()),
-  name: z
-    .string()
-    .min(3, { message: 'O nome precisa ter pelo menos 3 letras.' }),
-})
-
-type RegisterFormData = z.infer<typeof registerFormSchema>
-
 export default function Register() {
-  async function handleRegister(data: RegisterFormData) {}
+  // async function handleRegister(data: RegisterFormData) {}
 
   return (
     <Container>
