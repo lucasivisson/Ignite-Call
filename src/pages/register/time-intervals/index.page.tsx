@@ -1,5 +1,13 @@
-import { Checkbox, Heading, MultiStep, Text, TextInput } from '@ignite-ui/react'
+import {
+  Button,
+  Checkbox,
+  Heading,
+  MultiStep,
+  Text,
+  TextInput,
+} from '@ignite-ui/react'
 import { Container, Header } from '../styles'
+import { ArrowRight } from 'phosphor-react'
 import {
   IntervalBox,
   IntervalDay,
@@ -30,9 +38,15 @@ export default function TimeIntervals() {
             </IntervalDay>
             <IntervalInputs>
               <TextInput size="sm" type="time" step={60} />
+              <TextInput size="sm" type="time" step={60} />
             </IntervalInputs>
           </IntervalItem>
         </IntervalsContainer>
+
+        <Button type="submit">
+          Próximo passo
+          <ArrowRight />
+        </Button>
       </IntervalBox>
     </Container>
   )
