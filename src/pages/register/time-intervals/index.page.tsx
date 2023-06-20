@@ -14,6 +14,7 @@ import {
   IntervalInputs,
   IntervalItem,
   IntervalsContainer,
+  FormError,
 } from './styles'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -31,7 +32,10 @@ const timeIntervalsFormSchema = z.object({
       }),
     )
     .length(7)
-    .transform((intervals) => intervals.filter((interval) => interval.enabled)),
+    .transform((intervals) => intervals.filter((interval) => interval.enabled))
+    .refine((intervals) => intervals.length > 0, {
+      message: 'Você precisa selecionar pelo menos um dia da semana!',
+    }),
 })
 
 type TimeIntervalsFormData = z.infer<typeof timeIntervalsFormSchema>
@@ -44,7 +48,7 @@ export default function TimeIntervals() {
     formState: { isSubmitting, errors },
     watch,
   } = useForm({
-    resolver: zodResolver(),
+    resolver: zodResolver(timeIntervalsFormSchema),
     defaultValues: {
       intervals: [
         { weekDay: 0, enabled: false, startTime: '08:00', endTime: '18:00' },
@@ -63,7 +67,9 @@ export default function TimeIntervals() {
     control,
   })
 
-  async function handleSetTimeIntervals() {}
+  async function handleSetTimeIntervals(data) {
+    console.log(data)
+  }
 
   const weekDays = getWeekDays()
 
@@ -124,7 +130,11 @@ export default function TimeIntervals() {
           })}
         </IntervalsContainer>
 
-        <Button type="submit">
+        {errors.intervals && (
+          <FormError size="sm">{errors.intervals.message}</FormError>
+        )}
+
+        <Button type="submit" disabled={isSubmitting}>
           Próximo passo
           <ArrowRight />
         </Button>
