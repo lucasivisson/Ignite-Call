@@ -23,7 +23,7 @@ type CalendarWeeks = CalendarWeek[]
 
 type CalendarProps = {
   selectedDate: Date | null
-  onDateSelected: (date: Date) => void
+  onDateSelected: (date: Date | null) => void
 }
 
 export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
@@ -139,7 +139,16 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
                   return (
                     <td key={date.toString()}>
                       <CalendarDay
-                        onClick={() => onDateSelected(date.toDate())}
+                        onClick={() => {
+                          if (
+                            date.toDate().toDateString() ===
+                            selectedDate?.toDateString()
+                          ) {
+                            onDateSelected(null)
+                          } else {
+                            onDateSelected(date.toDate())
+                          }
+                        }}
                         disabled={disabled}
                       >
                         {date.get('date')}
