@@ -47,6 +47,8 @@ export function ConfirmStep({
       observations,
       date: schedulingDate,
     })
+
+    onCancelConfirmation()
   }
 
   const describedDate = dayjs(schedulingDate).format('DD[ de ]MMMM[ de ]YYYY')
